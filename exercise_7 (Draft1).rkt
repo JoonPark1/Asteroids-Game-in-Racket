@@ -75,9 +75,11 @@
              (square 256 
                      "solid" 
                      "black")))
+                     
+                     
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
-  )
+  
 
 (check-satisfied
  (make-player (make-posn 400 300)
@@ -98,7 +100,11 @@
   
   ;; render: asteroid -> image
   ;; Draw the asteroid
-  
+  (define (render a)
+    (overlay a
+             (square 256
+                     "solid"
+                     "black")))
   ;; radius: asteroid -> number
   ;; Size of the asteroid
   )
@@ -123,7 +129,11 @@
   
   ;; render: missile -> image
   ;; Draw the missile
-  
+  (define (render m)
+    (overlay m
+             (square 256
+                     "solid"
+                     "black")))
   ;; radius: missile -> number
   ;; Size of the missile
   )

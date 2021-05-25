@@ -162,8 +162,21 @@
 ;;
 ;; HEAT SEEKER MISSILE HERE
 ;;
-
-
+(define-struct (heat-seeker missle) ()
+  #methods
+  
+  
+  
+  ;; render: missile -> image
+  ;; Draw the missile
+  (define (render hs)
+    (local [(define heatseeker (circle  16
+                                        "solid"
+                                        "red"))]
+    (frame heatseeker)))
+  ;; radius: missle -> number  
+  (define (radius hs)
+    (sqrt 128))
 
 
 

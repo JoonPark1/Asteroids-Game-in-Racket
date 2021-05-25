@@ -6,7 +6,7 @@
 (require "./define_struct.rkt")
 (require "./asteroids_lib.rkt")
 ;;jjp9442(Sung Park)
-;;jaz3044(Julian)
+;;jaz3044(Julian Zea)
 
 ; Asteroids implemented using methods
 

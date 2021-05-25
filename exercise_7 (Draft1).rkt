@@ -71,10 +71,13 @@
   ;; render: player -> image
   ;; Draw the player's ship
   (define (render p)
+    (local [(define p (circle 16
+                              "solid"
+                              "blue"))]
     (overlay p
              (square 256 
                      "solid" 
-                     "black")))
+                     "black"))))
                      
                      
   ;; radius: player -> number
@@ -101,10 +104,13 @@
   ;; render: asteroid -> image
   ;; Draw the asteroid
   (define (render a)
+    (local [(define a (square 32
+                              "solid"
+                              "brown"))]
     (overlay a
              (square 256
                      "solid"
-                     "black")))
+                     "black"))))
   ;; radius: asteroid -> number
   ;; Size of the asteroid
   )
@@ -130,10 +136,14 @@
   ;; render: missile -> image
   ;; Draw the missile
   (define (render m)
+    (local [(define m (ellipse 16
+                               8
+                               "solid"
+                               "white"))]
     (overlay m
              (square 256
                      "solid"
-                     "black")))
+                     "black"))))
   ;; radius: missile -> number
   ;; Size of the missile
   )

@@ -70,7 +70,11 @@
   
   ;; render: player -> image
   ;; Draw the player's ship
-  
+  (define (render p)
+    (overlay p
+             (square 256 
+                     "solid" 
+                     "black")))
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
   )

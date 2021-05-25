@@ -106,10 +106,10 @@
   ;; render: asteroid -> image
   ;; Draw the asteroid
   (define (render a)
-    (local [(define a (square (asteroid-radius a)
-                              "solid"
-                              (asteroid-color a)))]
-   (frame a)))
+    (local [(define ast (square (asteroid-radius a)
+                                "solid"
+                                (asteroid-color a)))]
+   (frame ast)))
   ;; radius: asteroid -> number
   ;; Size of the asteroid
   (define (radius a)

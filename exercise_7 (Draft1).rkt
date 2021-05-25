@@ -82,7 +82,7 @@
                      
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
-  
+  )
 
 (check-satisfied
  (make-player (make-posn 400 300)
@@ -107,10 +107,7 @@
     (local [(define a (square 32
                               "solid"
                               "brown"))]
-    (overlay a
-             (square 256
-                     "solid"
-                     "black"))))
+   (frame a)))
   ;; radius: asteroid -> number
   ;; Size of the asteroid
   )
@@ -140,10 +137,7 @@
                                8
                                "solid"
                                "white"))]
-    (overlay m
-             (square 256
-                     "solid"
-                     "black"))))
+    (frame m)))
   ;; radius: missile -> number
   ;; Size of the missile
   )

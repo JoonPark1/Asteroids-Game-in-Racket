@@ -106,9 +106,9 @@
   ;; render: asteroid -> image
   ;; Draw the asteroid
   (define (render a)
-    (local [(define a (square 32
+    (local [(define a (square (asteroid-radius a)
                               "solid"
-                              "brown"))]
+                              (asteroid-color a)))]
    (frame a)))
   ;; radius: asteroid -> number
   ;; Size of the asteroid
@@ -133,6 +133,8 @@
   
   ;; update!: missile -> void
   ;; Decrement missile lifetime and destroy if necessary.
+  (define (update! m)
+    (...
   
   ;; render: missile -> image
   ;; Draw the missile

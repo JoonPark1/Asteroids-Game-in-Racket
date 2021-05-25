@@ -113,7 +113,7 @@
   ;; radius: asteroid -> number
   ;; Size of the asteroid
   (define (radius a)
-    (sqrt 512))
+    (asteroid-radius a))
   )
 
 (check-satisfied

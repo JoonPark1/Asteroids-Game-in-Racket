@@ -61,6 +61,12 @@
   ;; update!: player -> void
   ;; Accelerate if the engines are firing.
   
+  (define (update! p)
+    (when (= firing-engines? true)
+      (set-game-object-velocity! p
+                                 (posn-+ (game-object-velocity p)
+                                          (* 5 (forward-direction (game-object-velocity p)))))))
+  
   
   ;; render: player -> image
   ;; Draw the player's ship

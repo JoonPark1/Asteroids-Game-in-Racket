@@ -82,6 +82,8 @@
                      
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
+  (define (radius p)
+    (sqrt 512))
   )
 
 (check-satisfied
@@ -110,6 +112,8 @@
    (frame a)))
   ;; radius: asteroid -> number
   ;; Size of the asteroid
+  (define (radius a)
+    (sqrt 512))
   )
 
 (check-satisfied
@@ -133,13 +137,14 @@
   ;; render: missile -> image
   ;; Draw the missile
   (define (render m)
-    (local [(define m (ellipse 16
-                               8
+    (local [(define m (circle  16
                                "solid"
                                "white"))]
     (frame m)))
   ;; radius: missile -> number
   ;; Size of the missile
+  (define (radius m)
+    (sqrt 128))
   )
 
 (check-satisfied

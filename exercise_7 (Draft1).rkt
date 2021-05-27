@@ -208,7 +208,20 @@
                                     (/ (- (posn-x (game-object-position the-player)) (posn-x (game-object-position UFO)))) 2)
                                     (/ (- (posn-y (game-object-position the-player)) (posn-y (game-object-position UFO)))) 2)
           (void)))
-
+  ;;render: game-object -> Image
+  ;; Returns the image of the UFO game object.
+  (define (render p)
+    (local [(define p (circle 16
+                              "solid"
+                              "pink"))]
+    (overlay p
+             (square 256 
+                     "solid" 
+                     "black"))))  
+   ;;radius: game-object -> Number
+   ;; Return the radius of the UFO.
+   (define (radius p)
+    (sqrt 512))
 
 (check-satisfied make-ufo procedure?)
 (check-satisfied

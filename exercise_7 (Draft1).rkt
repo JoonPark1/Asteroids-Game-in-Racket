@@ -222,7 +222,14 @@
    ;; Return the radius of the UFO.
    (define (radius p)
     16)
-    )
+   
+   ;;destroy!: game-object -> void
+   ;; Respawn the UFO at the default position (100, 100)
+   (define (destroy! UFO)
+      (when (for-each
+            (set-game-object-position UFO
+                                      (make-posn 100
+                                                 100))))
 
 (check-satisfied make-ufo procedure?)
 (check-satisfied

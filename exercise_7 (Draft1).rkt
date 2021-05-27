@@ -83,7 +83,7 @@
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
   (define (radius p)
-    (sqrt 512))
+    16)
   )
 
 (check-satisfied
@@ -221,7 +221,8 @@
    ;;radius: game-object -> Number
    ;; Return the radius of the UFO.
    (define (radius p)
-    (sqrt 512))
+    16)
+    )
 
 (check-satisfied make-ufo procedure?)
 (check-satisfied

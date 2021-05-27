@@ -204,8 +204,9 @@
   ;;update!: game-object -> void
   ;; Set velocity of UFO to point towards the player game object.
  (define (update! UFO)
-   (begin (set-game-object-velocity-x! (- (posn-x (game-object-position the-player)) (posn-x (game-object-position UFO))))
-          (set-game-object-velocity-y! (- (posn-y (game-object-position the-player)) (posn-y (game-object-position UFO)))))
+   (begin (set-game-object-velocity UFO 
+                                    (/ (- (posn-x (game-object-position the-player)) (posn-x (game-object-position UFO)))) 2)
+                                    (/ (- (posn-y (game-object-position the-player)) (posn-y (game-object-position UFO)))) 2)
           (void)))
 
 

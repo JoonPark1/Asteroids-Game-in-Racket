@@ -230,7 +230,7 @@
                                        (game-object-position a)))
                    false
                    all-game-objects)
-            (set-game-object-position UFO
+            (set-game-object-position! UFO
                                       (make-posn 100
                                                  100))))
 

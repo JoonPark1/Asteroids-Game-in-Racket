@@ -226,7 +226,10 @@
    ;;destroy!: game-object -> void
    ;; Respawn the UFO at the default position (100, 100)
    (define (destroy! UFO)
-      (when (for-each
+      (when (foldr (lambda (a) (equal? (game-object-position UFO)
+                                       (game-object-position a)))
+                   false
+                   all-game-objects)
             (set-game-object-position UFO
                                       (make-posn 100
                                                  100))))

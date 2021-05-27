@@ -228,7 +228,7 @@
    (define (destroy! UFO)
       (when (foldr (lambda (a UFO) (equal? (game-object-position UFO)
                                            (game-object-position a)))
-                   (game-object-position (first all-game-objects))
+                   (game-object-position UFO)
                    all-game-objects)
             (set-game-object-position! UFO
                                       (make-posn 100

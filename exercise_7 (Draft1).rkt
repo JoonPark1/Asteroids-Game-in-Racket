@@ -164,7 +164,13 @@
 ;;
 (define-struct (heat-seeker missle) ()
   #methods
+  ;;update!: game-object -> void
+  ;; Updates the heat-seeker missle if there is asteroid nearby by accerlating the heat-seeker missle.
   
+  (define (update! hs)
+    (local [(define ast (closest-asteroid-to hs))]
+    (unless (= false ast)
+      (set-game-object-velocity! (heading-of ast hs)))))
   
   
   ;; render: missile -> image
@@ -174,7 +180,8 @@
                                         "solid"
                                         "red"))]
     (frame heatseeker)))
-  ;; radius: missle -> number  
+ 
+ ;; radius: missle -> number  
   (define (radius hs)
     (sqrt 128))
 

@@ -170,7 +170,7 @@
   (define (update! hs)
     (local [(define ast (closest-asteroid-to hs))]
     (unless (= false ast)
-      (set-game-object-velocity! (heading-of ast hs)))))
+      (set-game-object-velocity! (* 4 (heading-of ast hs))))))
   
   
   ;; render: missile -> image
@@ -198,7 +198,8 @@
 
 ;;
 ;; UFO HERE
-;;
+;;(define-struct (ufo game-object) ()
+    
 
 
 

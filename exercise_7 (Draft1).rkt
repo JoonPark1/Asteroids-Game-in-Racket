@@ -225,7 +225,7 @@
                               "solid"
                               "pink"))]
     (overlay p
-             p)))
+             (make-square 
   
    ;; radius: game-object -> Number
    ;; Return the radius of the UFO.

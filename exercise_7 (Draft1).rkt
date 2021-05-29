@@ -1,12 +1,7 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname |exercise_7 (Draft1)|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 (require 2htdp/image)
 (require 2htdp/universe)
 (require "./define_struct.rkt")
 (require "./asteroids_lib.rkt")
-;;jjp9442(Sung Park)
-;;jaz3044(Julian Zea)
 
 ; Asteroids implemented using methods
 
@@ -57,31 +52,32 @@
   ()
   #:methods
   ;; FILL IN THE FOLLOWING METHODS
-  
+
   ;; update!: player -> void
   ;; Accelerate if the engines are firing.
   
   (define (update! p)
-    (when (= firing-engines? true)
+    (when (equal? firing-engines? true)
       (set-game-object-velocity! p
                                  (posn-+ (game-object-velocity p)
-                                          (* 5 (forward-direction (game-object-velocity p)))))))
-  
-  
+                                 (make-posn
+                                 (* (posn-x (forward-direction p))5)
+                                 (* (posn-y (forward-direction p))5)))
+                                 )))
+
   ;; render: player -> image
   ;; Draw the player's ship
+  
   (define (render p)
     (local [(define p (circle 16
                               "solid"
                               "blue"))]
     (overlay p
-             (square 256 
-                     "solid" 
-                     "black"))))
-                     
-                     
+             p(asteroids))))
+
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
+  
   (define (radius p)
     16)
   )
@@ -102,14 +98,16 @@
   (radius color)
   #:methods
   ;; FILL THESE IN
-  
+
   ;; render: asteroid -> image
   ;; Draw the asteroid
   (define (render a)
     (local [(define ast (square (asteroid-radius a)
-                                "solid"
-                                (asteroid-color a)))]
-   (frame ast)))
+                              "solid"
+                              (asteroid-color a)))]
+    (frame ast
+             )))
+
   ;; radius: asteroid -> number
   ;; Size of the asteroid
   (define (radius a)
@@ -130,21 +128,23 @@
   (lifetime)
   #:methods
   ;; FILL THESE IN
-  
+
   ;; update!: missile -> void
   ;; Decrement missile lifetime and destroy if necessary.
   (define (update! m)
-    (cond [(= (missle-lifetime m) 0) (destroy! m)]
+    (cond [(= (missile-lifetime m) 0) (destroy! m)]
           [else
-            (- (missle-lifetime m) 1)]))
-  
+            (- (missile-lifetime m) 1)]))
+
   ;; render: missile -> image
   ;; Draw the missile
   (define (render m)
-    (local [(define m (circle  16
+    (local [(define missile (circle 16
                                "solid"
                                "white"))]
-    (frame m)))
+    (frame missile
+             )))
+
   ;; radius: missile -> number
   ;; Size of the missile
   (define (radius m)
@@ -162,16 +162,18 @@
 ;;
 ;; HEAT SEEKER MISSILE HERE
 ;;
-(define-struct (heat-seeker missle) ()
-  #methods
-  ;;update!: game-object -> void
-  ;; Updates the heat-seeker missle if there is asteroid nearby by accerlating the heat-seeker missle.
+(define-struct (heat-seeker missile) ()
+  #:methods
   
+  ;; update!: game-object -> void
+  ;; Updates the heat-seeker missle if there is asteroid nearby by accerlating the heat-seeker missle.
   (define (update! hs)
     (local [(define ast (closest-asteroid-to hs))]
-    (unless (= false ast)
-      (set-game-object-velocity! (* 4 (heading-of ast hs))))))
-  
+    (unless (equal? false ast)
+      (set-game-object-velocity! hs
+                                 (make-posn
+                                 (* 4 (posn-x (heading-of ast hs)))
+                                 (* 4 (posn-y (heading-of ast hs))))))))
   
   ;; render: missile -> image
   ;; Draw the missile
@@ -180,10 +182,13 @@
                                         "solid"
                                         "red"))]
     (frame heatseeker)))
- 
- ;; radius: missle -> number  
+  
+  ;; radius: missle -> number
+  ;; Computes radius of missile object
   (define (radius hs)
     (sqrt 128))
+)
+
 
 
 
@@ -198,41 +203,52 @@
 
 ;;
 ;; UFO HERE
-;;(define-struct (ufo game-object) ()
-  #methods
+;;
+(define-struct (ufo game-object) ()
+  #:methods
   
-  ;;update!: game-object -> void
+  ;; update!: game-object -> void
   ;; Set velocity of UFO to point towards the player game object.
+  
  (define (update! UFO)
-   (begin (set-game-object-velocity UFO 
-                                    (/ (- (posn-x (game-object-position the-player)) (posn-x (game-object-position UFO)))) 2)
-                                    (/ (- (posn-y (game-object-position the-player)) (posn-y (game-object-position UFO)))) 2)
-          (void)))
-  ;;render: game-object -> Image
+   (begin (set-game-object-velocity! UFO
+                                     (make-posn
+                                     (/ (- (posn-x (game-object-position the-player)) (posn-x (game-object-position UFO)))2)
+                                     (/ (- (posn-y (game-object-position the-player)) (posn-y (game-object-position UFO)))2)))
+          ))
+
+  ;; render: game-object -> Image
   ;; Returns the image of the UFO game object.
+  
   (define (render p)
     (local [(define p (circle 16
                               "solid"
                               "pink"))]
     (overlay p
-             (square 256 
-                     "solid" 
-                     "black"))))  
-   ;;radius: game-object -> Number
+             p)))
+  
+   ;; radius: game-object -> Number
    ;; Return the radius of the UFO.
+  
    (define (radius p)
     16)
-   
-   ;;destroy!: game-object -> void
+
+   ;; destroy!: game-object -> void
    ;; Respawn the UFO at the default position (100, 100)
+  
    (define (destroy! UFO)
-      (when (foldr (lambda (a UFO) (equal? (game-object-position UFO)
-                                           (game-object-position a)))
-                   (game-object-position UFO)
-                   all-game-objects)
-            (set-game-object-position! UFO
-                                      (make-posn 100
-                                                 100))))
+      (for-each (lambda (a)
+                  (if (equal? (game-object-position UFO)(game-object-position a))
+                  (set-game-object-position! UFO
+                           (make-posn 100
+                                      100))false))
+                   all-game-objects))
+
+)
+
+
+
+
 
 (check-satisfied make-ufo procedure?)
 (check-satisfied

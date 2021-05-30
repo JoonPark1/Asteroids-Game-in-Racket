@@ -73,7 +73,7 @@
                               "solid"
                               "blue"))]
     (overlay p
-             p(asteroids))))
+             p)))
 
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
@@ -171,9 +171,10 @@
     (local [(define ast (closest-asteroid-to hs))]
     (unless (equal? false ast)
       (set-game-object-velocity! hs
+                                 (posn-+ (game-object-velocity hs)
                                  (make-posn
                                  (* 4 (posn-x (heading-of ast hs)))
-                                 (* 4 (posn-y (heading-of ast hs))))))))
+                                 (* 4 (posn-y (heading-of ast hs)))))))))
   
   ;; render: missile -> image
   ;; Draw the missile
@@ -225,7 +226,7 @@
                               "solid"
                               "pink"))]
     (overlay p
-             (make-square 
+             p)))
   
    ;; radius: game-object -> Number
    ;; Return the radius of the UFO.

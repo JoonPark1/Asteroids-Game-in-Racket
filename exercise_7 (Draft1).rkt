@@ -2,8 +2,8 @@
 (require 2htdp/universe)
 (require "./define_struct.rkt")
 (require "./asteroids_lib.rkt")
-
-; Asteroids implemented using methods
+;;jjp9442(Sung Park)
+;;jaz3044(Julian); Asteroids implemented using methods
 
 ;;; Type definitions
 

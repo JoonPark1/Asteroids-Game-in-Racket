@@ -134,7 +134,7 @@
   (define (update! m)
     (cond [(= (missile-lifetime m) 0) (destroy! m)]
           [else
-            (- (missile-lifetime m) 1)]))
+            (set! (missile-lifetime m)(-(missile-lifetime m)1))]))
 
   ;; render: missile -> image
   ;; Draw the missile

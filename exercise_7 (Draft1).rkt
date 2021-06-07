@@ -54,8 +54,7 @@
   ;; FILL IN THE FOLLOWING METHODS
 
   ;; update!: player -> void
-  ;; Accelerate if the engines are firing.
-  
+  ;; Accelerate the player's game object if the engines are firing.
   (define (update! p)
     (when (equal? firing-engines? true)
       (set-game-object-velocity! p
@@ -67,7 +66,6 @@
 
   ;; render: player -> image
   ;; Draw the player's ship
-  
   (define (render p)
     (local [(define p (circle 16
                               "solid"
@@ -77,7 +75,6 @@
 
   ;; radius: player -> number
   ;; Size of the object (for collision detection)
-  
   (define (radius p)
     16)
   )
@@ -109,7 +106,7 @@
              )))
 
   ;; radius: asteroid -> number
-  ;; Size of the asteroid
+  ;; Size of the asteroid (for collision detection)
   (define (radius a)
     (asteroid-radius a))
   )
@@ -130,7 +127,7 @@
   ;; FILL THESE IN
 
   ;; update!: missile -> void
-  ;; Decrement missile lifetime and destroy if necessary.
+  ;; Decrement missile lifetime and destroy the missile if necessary.
   (define (update! m)
     (cond [(equal? (missile-lifetime m) 0)
            (destroy! m)]
@@ -147,7 +144,7 @@
              )))
 
   ;; radius: missile -> number
-  ;; Size of the missile
+  ;; Size of the missile (for collision detection)
   (define (radius m)
     (sqrt 128))
   )
@@ -167,7 +164,9 @@
   #:methods
   
   ;; update!: game-object -> void
-  ;; Updates the heat-seeker missle if there is asteroid nearby by accerlating the heat-seeker missle.
+  ;; Updates the heat-seeker missle velocity towards the clostest asteroid
+  ;; if there is an asteroid nearby by accelerating the heat-seeker missile
+  ;; towards that said asteroid.
   (define (update! hs)
     (local [(define ast (closest-asteroid-to hs))]
     (unless (equal? false ast)
@@ -186,7 +185,7 @@
     (frame heatseeker)))
   
   ;; radius: missle -> number
-  ;; Computes radius of missile object
+  ;; Computes radius of missile object (for collision detection)
   (define (radius hs)
     (sqrt 128))
 )
@@ -211,7 +210,6 @@
   
   ;; update!: game-object -> void
   ;; Set velocity of UFO to point towards the player game object.
-  
  (define (update! UFO)
    (begin (set-game-object-velocity! UFO
                                      (make-posn
@@ -221,7 +219,6 @@
 
   ;; render: game-object -> Image
   ;; Returns the image of the UFO game object.
-  
   (define (render p)
     (local [(define p (circle 16
                               "solid"
@@ -230,16 +227,14 @@
              p)))
   
    ;; radius: game-object -> Number
-   ;; Return the radius of the UFO.
-  
+   ;; Return the radius of the UFO. (for collision detection)
    (define (radius p)
     16)
 
    ;; destroy!: game-object -> void
-   ;; Respawn the UFO at the default position (100, 100)
-  
+   ;; Respawn the UFO at the default position (100, 100) when it is destroyed
    (define (destroy! UFO)
-      (for-each (lambda (a)
+      (for-each (lambda (a) 
                   (if (equal? (game-object-position UFO)(game-object-position a))
                   (set-game-object-position! UFO
                            (make-posn 100
